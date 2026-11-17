@@ -13,7 +13,7 @@ module.exports = ({ config }) => {
   const commit = sourceCommit();
   if (process.env.EAS_BUILD_PROFILE === 'avaliacao') {
     if (!/^https:\/\/[^\s]+$/.test(process.env.EXPO_PUBLIC_API_URL ?? '')) {
-      throw new Error('Configure EXPO_PUBLIC_API_URL com a URL HTTPS do Azure no ambiente preview.');
+      throw new Error('Configure EXPO_PUBLIC_API_URL com a URL HTTPS do Azure no perfil avaliacao.');
     }
     if (!/^[a-f0-9]{40}$/i.test(commit)) {
       throw new Error('O APK de avaliação precisa do hash completo do commit.');

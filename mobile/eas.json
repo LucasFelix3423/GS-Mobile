@@ -4,6 +4,7 @@
     "avaliacao": {
       "distribution": "internal",
       "environment": "preview",
+      "env": { "EXPO_PUBLIC_API_URL": "https://alerta-bairro-gs262.azurewebsites.net" },
       "android": { "buildType": "apk" }
     }
   }
