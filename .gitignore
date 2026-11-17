@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/data/
+**/.env
+**/.env.*
+!**/.env.example
+*.db
+*.db-shm
+*.db-wal
+*.user
+*.apk
+artifacts/
