@@ -20,16 +20,9 @@ Para conferir tipos e lint, rode `npm run typecheck` e `npm run lint` em `mobile
 
 ## Gerar e distribuir o APK
 
-1. O perfil `avaliacao` já usa a URL pública da API. Se o serviço mudar de endereço, atualize `EXPO_PUBLIC_API_URL` em `mobile/eas.json` com o novo domínio HTTPS, sem `/api`. Em `mobile`, entre na conta Expo do grupo e vincule o projeto.
+1. Entre na conta Expo com acesso à equipe `lucasfelix3423s-team` e abra o terminal em `mobile`. O perfil `avaliacao` usa a API no Azure. [Projeto no Expo](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile)
 
-   ```powershell
-   npx eas-cli@latest login
-   npx eas-cli@latest init
-   ```
-
-   Se o Expo pedir para inserir o ID manualmente por causa da configuração dinâmica, coloque o ID exibido pelo comando `init` em `expo.extra.eas.projectId` no arquivo `mobile/app.json`.
-
-2. Faça commit da configuração gerada pelo Expo e deixe a árvore de trabalho limpa. O perfil de avaliação registra o hash completo do commit em **Sobre o App**.
+2. Faça commit das mudanças antes de gerar o APK. O app registra o hash do commit em **Sobre o App**.
 
    ```powershell
    npx eas-cli@latest build --platform android --profile avaliacao

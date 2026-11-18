@@ -1,6 +1,12 @@
 {
   "expo": {
     "name": "Alerta Bairro",
-    "slug": "alerta-bairro"
+    "slug": "gs-mobile",
+    "owner": "lucasfelix3423s-team",
+    "extra": {
+      "eas": {
+        "projectId": "484dd331-790a-43be-bcd4-4c5d418ea6e2"
+      }
+    }
   }
 }

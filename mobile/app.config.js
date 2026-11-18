@@ -22,7 +22,6 @@ module.exports = ({ config }) => {
   return {
     ...config,
     name: 'Alerta Bairro',
-    slug: 'alerta-bairro',
     version: '1.0.0',
     orientation: 'portrait',
     scheme: 'alertabairro',
