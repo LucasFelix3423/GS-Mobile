@@ -1,5 +1,3 @@
-import { Platform } from 'react-native';
-
 export type Profile = { id: string; name: string; email: string };
 export type Session = { token: string; user: Profile; expiresAt: string };
 export type Neighborhood = { id: string; name: string; zone: string };
@@ -21,8 +19,8 @@ export type ForecastAlert = {
   simulated: boolean;
 };
 
-const localUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5075' : 'http://127.0.0.1:5075';
-const baseUrl = (process.env.EXPO_PUBLIC_API_URL || localUrl).replace(/\/+$/, '');
+const defaultApiUrl = 'https://alerta-bairro-gs262.azurewebsites.net';
+const baseUrl = (process.env.EXPO_PUBLIC_API_URL || defaultApiUrl).replace(/\/+$/, '');
 
 export class ApiError extends Error {
   constructor(public readonly status: number, message: string) {
