@@ -53,4 +53,4 @@ O app usa Fetch para acessar a API. O aplicativo nativo protege o token de sess�
 
 Cadastre a conta, saia e entre para mostrar o login. No painel, adicione um local na **Mooca** para exibir o alerta de enchente. Abra o alerta e mostre os filtros. Edite o local para **Santana**, confirme a atualização e exclua o local. Mostre o hash da versão em **Sobre o App** e termine com o logout.
 
-Preencha `entrega-modelo.txt` com o nome do grupo, integrantes, link do vídeo e repositório. Envie o arquivo no Portal do Aluno. Dê ao professor acesso ao GitHub e à versão no Firebase App Distribution.
+Crie um arquivo `.txt` com o nome do grupo, integrantes, link do vídeo e repositório. Envie o arquivo no Portal do Aluno. Dê ao professor acesso ao GitHub e à versão no Firebase App Distribution.
