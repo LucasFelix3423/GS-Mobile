@@ -2,6 +2,15 @@
 
 Aplicativo da Global Solution 2026/2 da FIAP, no tema CitizenTech. O morador salva locais de São Paulo e consulta cenários de enchente, deslizamento, incêndio em vegetação e onda de calor. O painel destaca o alerta de maior gravidade entre os bairros acompanhados. Os cenários são identificados como simulação e os alertas ficam disponíveis dentro do app.
 
+## Links da entrega
+
+| Serviço | Links |
+|---|---|
+| Firebase App Distribution | [Instalar o APK como testador convidado](https://appdistribution.firebase.google.com/testerapps/1:884007802339:android:0f31874db5caaa8bb63cd6/releases/791uku3rdl6oo) · [Versão 1.0.0 no console](https://console.firebase.google.com/project/gsmobile-fdfec/appdistribution/app/android:br.com.alertabairro.app/releases/791uku3rdl6oo) |
+| Azure App Service | [Endereço da API](https://alerta-bairro-gs262.azurewebsites.net) · [Consultar status da API](https://alerta-bairro-gs262.azurewebsites.net/health) |
+| Expo EAS | [Projeto gs-mobile](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile) · [Compilação Android de avaliação](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile/builds/1aae608e-e68a-4ca8-8e3f-e0d1f39f24ea) |
+| GitHub | [Commit de referência do APK (5ea39a2)](https://github.com/LucasFelix3423/GS-Mobile/commit/5ea39a2a0ec017a765d0895ee1bcd19fecb8c5fd) |
+
 ## Executar localmente
 
 Instale o Node.js 22 e o Git. Rode os comandos a partir da pasta deste README.
