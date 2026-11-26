@@ -1,13 +1,14 @@
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { useRef, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import type { RootStackNavigationProp } from '@/navigation/types';
 import { api } from '@/services/api';
 import { useAuth } from '@/state/auth';
 import { colors, font } from '@/styles/theme';
 import { Action, Card, Feedback, Field, Heading, Page } from './ui';
 
 export function AuthForm({ signup = false }: { signup?: boolean }) {
-  const router = useRouter();
+  const navigation = useNavigation<RootStackNavigationProp<'Login' | 'Cadastro'>>();
   const { start } = useAuth();
   const submitting = useRef(false);
   const [name, setName] = useState('');
@@ -54,7 +55,7 @@ export function AuthForm({ signup = false }: { signup?: boolean }) {
         <Action label={signup ? 'Cadastrar' : 'Entrar'} icon={signup ? 'person-add-outline' : 'log-in-outline'} busy={busy} onPress={submit} />
       </Card>
       <Action label={signup ? 'Já tenho conta' : 'Criar conta'} variant="secondary"
-        disabled={busy} onPress={() => signup ? (router.canGoBack() ? router.back() : router.replace('/login')) : router.push('/cadastro')} />
+        disabled={busy} onPress={() => signup ? (navigation.canGoBack() ? navigation.goBack() : navigation.replace('Login')) : navigation.navigate('Cadastro')} />
     </Page>
   );
 }

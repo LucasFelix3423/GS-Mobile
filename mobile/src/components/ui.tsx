@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useIsFocused } from 'expo-router';
+import { useIsFocused } from '@react-navigation/native';
 import type { ComponentProps, ReactNode } from 'react';
 import { ActivityIndicator, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, Text, TextInput, View, type ColorValue, type TextInputProps } from 'react-native';
 import { colors, font } from '@/styles/theme';

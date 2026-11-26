@@ -1,13 +1,15 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import { useCallback, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Action, Card, Chip, Feedback, Field, Heading, Page, ResourceState, shared } from '@/components/ui';
 import { useApiResource } from '@/hooks/use-api-resource';
+import type { RootStackNavigationProp, RootStackParamList } from '@/navigation/types';
 import { api, type Neighborhood, type PlaceInput } from '@/services/api';
 import { useAuth } from '@/state/auth';
 
-export default function PlaceScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+export function PlaceScreen() {
+  const route = useRoute<RouteProp<RootStackParamList, 'Local'>>();
+  const id = route.params?.id;
   const load = useCallback(async (token: string) => {
     const [neighborhoods, place] = await Promise.all([api.neighborhoods(token), id ? api.place(token, id) : null]);
     return { neighborhoods, place };
@@ -25,14 +27,14 @@ export default function PlaceScreen() {
 }
 
 function PlaceForm({ id, initial, neighborhoods }: { id?: string; initial: PlaceInput | null; neighborhoods: Neighborhood[] }) {
-  const router = useRouter();
+  const navigation = useNavigation<RootStackNavigationProp<'Local'>>();
   const { authorized } = useAuth();
   const [name, setName] = useState(initial?.name ?? '');
   const [neighborhoodId, setNeighborhoodId] = useState(initial?.neighborhoodId ?? '');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const submitting = useRef(false);
-  const back = () => router.canGoBack() ? router.back() : router.replace('/locais');
+  const back = () => (navigation.canGoBack() ? navigation.goBack() : navigation.replace('MainTabs', { screen: 'Locais' }));
 
   async function submit() {
     if (submitting.current) return;

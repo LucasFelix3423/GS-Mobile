@@ -36,7 +36,7 @@ module.exports = ({ config }) => {
     },
     ios: { bundleIdentifier: 'br.com.alertabairro.app' },
     web: { favicon: './assets/images/icon.png', output: 'single' },
-    plugins: ['expo-router', 'expo-secure-store'],
+    plugins: ['expo-secure-store'],
     extra: { ...config.extra, commit },
   };
 };

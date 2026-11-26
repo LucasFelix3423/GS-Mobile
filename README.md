@@ -54,7 +54,7 @@ Para conferir tipos e lint, rode `npm run typecheck` e `npm run lint` em `mobile
 | Adicionar ou editar local | Formulário de nome e bairro. |
 | Sobre o App | Tela adicional com a versão e o hash do commit. |
 
-O app usa Fetch para acessar a API. O aplicativo nativo protege o token de sessão com o armazenamento seguro do dispositivo. Os locais monitorados ficam vinculados à conta autenticada na API.
+O app usa Axios para acessar a API e React Navigation (Stack e Bottom Tabs) para a navegação entre telas. O aplicativo nativo protege o token de sessão com o armazenamento seguro do dispositivo. Os locais monitorados ficam vinculados à conta autenticada na API.
 
 ## Vídeo e entrega
 

@@ -1,9 +1,10 @@
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { ForecastCard } from '@/components/forecast-card';
 import { Card, Chip, Empty, Feedback, Heading, Page, ResourceState, shared } from '@/components/ui';
 import { useApiResource } from '@/hooks/use-api-resource';
+import type { MainTabNavigationProp } from '@/navigation/types';
 import { api, type Severity } from '@/services/api';
 import { severityLabels, sortedAlerts } from '@/services/forecasts';
 
@@ -12,8 +13,8 @@ async function loadAlerts(token: string) {
   return { alerts: sortedAlerts(alerts), places };
 }
 
-export default function AlertsScreen() {
-  const router = useRouter();
+export function AlertsScreen() {
+  const navigation = useNavigation<MainTabNavigationProp<'Alertas'>>();
   const [severity, setSeverity] = useState<Severity | ''>('');
   const [placeId, setPlaceId] = useState('');
   const result = useApiResource(loadAlerts);
@@ -48,7 +49,7 @@ export default function AlertsScreen() {
           description="Experimente mudar os filtros para consultar outros cenários." />
           : <View style={shared.group}>
             {filtered.map(alert => <ForecastCard key={alert.id} alert={alert}
-              onPress={() => router.push({ pathname: '/alertas/[id]', params: { id: alert.id } })} />)}
+              onPress={() => navigation.navigate('AlertaDetalhes', { id: alert.id })} />)}
           </View>}
       </>}
     </Page>

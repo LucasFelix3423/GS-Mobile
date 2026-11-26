@@ -1,14 +1,16 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRoute, type RouteProp } from '@react-navigation/native';
 import { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { RiskBadge } from '@/components/forecast-card';
 import { Card, Feedback, Heading, Icon, Page, ResourceState, SectionTitle, shared } from '@/components/ui';
 import { useApiResource } from '@/hooks/use-api-resource';
+import type { RootStackParamList } from '@/navigation/types';
 import { api } from '@/services/api';
 import { alertTypes, formatAlertTime } from '@/services/forecasts';
 
-export default function AlertDetailsScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+export function AlertDetailsScreen() {
+  const route = useRoute<RouteProp<RootStackParamList, 'AlertaDetalhes'>>();
+  const { id } = route.params;
   const load = useCallback((token: string) => api.alert(token, id), [id]);
   const { data, error, loading, refresh } = useApiResource(load);
 

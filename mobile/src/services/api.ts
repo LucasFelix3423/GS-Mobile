@@ -1,3 +1,5 @@
+import { create as createAxios, isAxiosError, type AxiosRequestConfig } from 'axios';
+
 export type Profile = { id: string; name: string; email: string };
 export type Session = { token: string; user: Profile; expiresAt: string };
 export type Neighborhood = { id: string; name: string; zone: string };
@@ -28,36 +30,46 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, options: { token?: string; method?: string; body?: object } = {}): Promise<T> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
-  const headers: Record<string, string> = { Accept: 'application/json' };
+export const apiClient = createAxios({
+  baseURL: `${baseUrl}/api`,
+  timeout: 15000,
+  headers: { Accept: 'application/json' },
+});
+
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    if (isAxiosError(error) && error.response) {
+      const { status, data } = error.response;
+      const serverMessage =
+        typeof data === 'object' && data !== null && 'message' in data && typeof data.message === 'string'
+          ? data.message
+          : '';
+      const messages: Record<number, string> = {
+        401: 'Sua sessão expirou. Entre novamente.',
+        404: 'Este registro não está mais disponível.',
+        429: 'Muitas tentativas. Aguarde um minuto e tente novamente.',
+      };
+      return Promise.reject(new ApiError(status, serverMessage || messages[status] || 'Ocorreu um erro. Tente novamente.'));
+    }
+    return Promise.reject(new ApiError(0, 'Não foi possível conectar. Verifique sua conexão e tente novamente.'));
+  },
+);
+
+async function request<T>(
+  path: string,
+  options: { token?: string; method?: AxiosRequestConfig['method']; body?: object } = {},
+): Promise<T> {
+  const headers: Record<string, string> = {};
   if (options.token) headers.Authorization = 'Bearer ' + options.token;
   if (options.body) headers['Content-Type'] = 'application/json';
-  let response: Response;
-  try {
-    response = await fetch(baseUrl + '/api' + path, {
-      method: options.method ?? 'GET',
-      headers,
-      body: options.body ? JSON.stringify(options.body) : undefined,
-      signal: controller.signal,
-    });
-  } catch {
-    throw new ApiError(0, 'Não foi possível conectar. Verifique sua conexão e tente novamente.');
-  } finally {
-    clearTimeout(timeout);
-  }
-
-  if (!response.ok) {
-    const body = await response.json().catch(() => null);
-    const messages: Record<number, string> = {
-      401: 'Sua sessão expirou. Entre novamente.',
-      404: 'Este registro não está mais disponível.',
-      429: 'Muitas tentativas. Aguarde um minuto e tente novamente.',
-    };
-    throw new ApiError(response.status, body?.message || messages[response.status] || 'Ocorreu um erro. Tente novamente.');
-  }
-  return response.status === 204 ? (undefined as T) : response.json();
+  const response = await apiClient.request<T>({
+    url: path,
+    method: options.method ?? 'GET',
+    headers,
+    data: options.body,
+  });
+  return response.status === 204 ? (undefined as T) : response.data;
 }
 
 export const api = {

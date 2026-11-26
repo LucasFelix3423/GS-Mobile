@@ -1,5 +1,5 @@
 import { AuthForm } from '@/components/auth-form';
 
-export default function SignupScreen() {
+export function SignupScreen() {
   return <AuthForm signup />;
 }

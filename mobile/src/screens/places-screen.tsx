@@ -1,13 +1,14 @@
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Action, Card, Empty, Feedback, Heading, Icon, Page, ResourceState, shared } from '@/components/ui';
 import { useApiResource } from '@/hooks/use-api-resource';
+import type { MainTabNavigationProp } from '@/navigation/types';
 import { api, type Place } from '@/services/api';
 import { useAuth } from '@/state/auth';
 
-export default function PlacesScreen() {
-  const router = useRouter();
+export function PlacesScreen() {
+  const navigation = useNavigation<MainTabNavigationProp<'Locais'>>();
   const { authorized } = useAuth();
   const places = useApiResource(api.places);
   const [confirm, setConfirm] = useState<string | null>(null);
@@ -35,7 +36,7 @@ export default function PlacesScreen() {
   return (
     <Page refresh={places.refresh} refreshing={places.loading && !!places.data}>
       <Heading title="Meus locais" description="Gerencie os bairros que você acompanha." />
-      <Action label="Adicionar local" icon="add" onPress={() => router.push('/local')} />
+      <Action label="Adicionar local" icon="add" onPress={() => navigation.navigate('Local')} />
       <ResourceState loading={places.loading} error={places.error} retry={places.refresh} />
       <Feedback kind="info" message={notice} />
       {places.data?.length === 0 && <Empty icon="location-outline" title="Nenhum local cadastrado"
@@ -53,7 +54,7 @@ export default function PlacesScreen() {
           </View>
         </> : <View style={styles.actions}>
           <Action label="Editar" icon="create-outline" variant="secondary" disabled={deleting}
-            onPress={() => router.push({ pathname: '/local', params: { id: place.id } })} />
+            onPress={() => navigation.navigate('Local', { id: place.id })} />
           <Action label="Excluir" icon="trash-outline" variant="danger" disabled={deleting}
             onPress={() => { setConfirm(place.id); setError(''); setNotice(''); }} />
         </View>}

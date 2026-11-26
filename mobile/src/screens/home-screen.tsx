@@ -1,9 +1,10 @@
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ForecastCard, ForecastHero } from '@/components/forecast-card';
 import { Action, Empty, Feedback, Heading, Icon, Page, ResourceState, SectionTitle, shared } from '@/components/ui';
 import { useApiResource } from '@/hooks/use-api-resource';
+import type { MainTabNavigationProp } from '@/navigation/types';
 import { api } from '@/services/api';
 import { sortedAlerts } from '@/services/forecasts';
 import { useAuth } from '@/state/auth';
@@ -15,14 +16,14 @@ async function loadDashboard(token: string) {
   return { places, matching: sortedAlerts(alerts.filter(alert => neighborhoods.has(alert.neighborhoodId))) };
 }
 
-export default function HomeScreen() {
-  const router = useRouter();
+export function HomeScreen() {
+  const navigation = useNavigation<MainTabNavigationProp<'Inicio'>>();
   const { identity, logout } = useAuth();
   const resource = useApiResource(loadDashboard);
   const [signingOut, setSigningOut] = useState(false);
   const [logoutError, setLogoutError] = useState('');
   const topAlert = resource.data?.matching[0];
-  const openAlert = (id: string) => router.push({ pathname: '/alertas/[id]', params: { id } });
+  const openAlert = (id: string) => navigation.navigate('AlertaDetalhes', { id });
 
   async function signOut() {
     if (signingOut) return;
@@ -43,7 +44,7 @@ export default function HomeScreen() {
         <View style={shared.grow}>
           <Heading title={'Olá, ' + (identity?.user.name.split(/\s+/)[0] ?? 'morador')} description="Acompanhe os lugares importantes para você." />
         </View>
-        <Pressable accessibilityRole="button" accessibilityLabel="Sobre o App" onPress={() => router.push('/sobre')}
+        <Pressable accessibilityRole="button" accessibilityLabel="Sobre o App" onPress={() => navigation.navigate('Sobre')}
           style={({ pressed }) => [styles.about, pressed && { opacity: 0.65 }]}>
           <Icon name="information-circle-outline" />
         </Pressable>
@@ -52,11 +53,11 @@ export default function HomeScreen() {
       <Feedback kind="info" message="Modo demonstração · Alertas simulados" />
       <ResourceState loading={resource.loading && !resource.data} error={resource.error} retry={resource.refresh} />
       {resource.data && <>
-        <ForecastHero alert={topAlert} onPress={() => topAlert ? openAlert(topAlert.id) : router.push('/alertas')} />
+        <ForecastHero alert={topAlert} onPress={() => topAlert ? openAlert(topAlert.id) : navigation.navigate('Alertas')} />
         <SectionTitle>Meus locais</SectionTitle>
         {resource.data.places.length === 0 ? <Empty icon="location-outline" title="Adicione seu primeiro local"
           description="Escolha um bairro para ver os alertas relacionados a ele."
-          action={<Action label="Adicionar local" icon="add" onPress={() => router.push('/local')} />} />
+          action={<Action label="Adicionar local" icon="add" onPress={() => navigation.navigate('Local')} />} />
           : <>
             <View style={styles.summary}>
               <View style={shared.row}>
@@ -68,7 +69,7 @@ export default function HomeScreen() {
                 : resource.data.matching.length === 1 ? '1 alerta simulado para seus locais.' : resource.data.matching.length + ' alertas simulados para seus locais.'}</Text>
             </View>
             {resource.data.matching.slice(1, 4).map(alert => <ForecastCard key={alert.id} alert={alert} onPress={() => openAlert(alert.id)} />)}
-            <Action label="Gerenciar meus locais" variant="secondary" icon="location-outline" onPress={() => router.push('/locais')} />
+            <Action label="Gerenciar meus locais" variant="secondary" icon="location-outline" onPress={() => navigation.navigate('Locais')} />
           </>}
       </>}
       <Feedback message={logoutError} />
