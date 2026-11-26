@@ -6,10 +6,10 @@ Aplicativo da Global Solution 2026/2 da FIAP, no tema CitizenTech. O morador sal
 
 | Serviço | Links |
 |---|---|
-| Firebase App Distribution | [Instalar o APK como testador convidado](https://appdistribution.firebase.google.com/testerapps/1:884007802339:android:0f31874db5caaa8bb63cd6/releases/791uku3rdl6oo) · [Versão 1.0.0 no console](https://console.firebase.google.com/project/gsmobile-fdfec/appdistribution/app/android:br.com.alertabairro.app/releases/791uku3rdl6oo) |
+| Firebase App Distribution | [Instalar o APK como testador convidado](https://appdistribution.firebase.google.com/testerapps/1:884007802339:android:0f31874db5caaa8bb63cd6/releases/3uddospoa2m3o) · [Versão 1.0.0 no console](https://console.firebase.google.com/project/gsmobile-fdfec/appdistribution/app/android:br.com.alertabairro.app/releases/3uddospoa2m3o) |
 | Azure App Service | [Endereço da API](https://alerta-bairro-gs262.azurewebsites.net) · [Consultar status da API](https://alerta-bairro-gs262.azurewebsites.net/health) |
-| Expo EAS | [Projeto gs-mobile](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile) · [Compilação Android de avaliação](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile/builds/1aae608e-e68a-4ca8-8e3f-e0d1f39f24ea) |
-| GitHub | [Commit de referência do APK (5ea39a2)](https://github.com/LucasFelix3423/GS-Mobile/commit/5ea39a2a0ec017a765d0895ee1bcd19fecb8c5fd) |
+| Expo EAS | [Projeto gs-mobile](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile) · [Compilação Android de avaliação](https://expo.dev/accounts/lucasfelix3423s-team/projects/gs-mobile/builds/1bd7f77b-9123-4433-adcf-8b5f4ff21598) |
+| GitHub | [Commit de referência do APK (7c2a1f2)](https://github.com/LucasFelix3423/GS-Mobile/commit/7c2a1f2d616eeefed4f8493a630cba27b3403902) |
 
 ## Executar localmente
 
